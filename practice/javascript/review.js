@@ -62,7 +62,7 @@ Truthy values: All values are truthy unless they are defined as falsy (i.e., exc
 /* =========================================================================== */
 
 /* 
-Types of JS statements: 
+Types of JS statements and declaration: 
 control flow -> (if...else, break, switch, etc.),
 declarations -> var, let, const,
 functions and classes,
