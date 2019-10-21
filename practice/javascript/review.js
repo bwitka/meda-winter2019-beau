@@ -55,4 +55,33 @@ let Sym1 = Symbol("Sym");
 
 // Falsy values: false, 0, "", null, NaN, undefined
 
-// Truthy values:
+/*
+Truthy values: All values are truthy unless they are defined as falsy (i.e., except for false, 0, 0n, "", null, undefined, and NaN).
+*/
+
+/* =========================================================================== */
+
+/* 
+Types of JS statements: 
+control flow -> (if...else, break, switch, etc.),
+declarations -> var, let, const,
+functions and classes,
+iterations.
+*/
+
+// if...else:
+if (/* condition */ false) {
+  /* code that will run if condition is true */
+} else {
+  /* code that will run if condition is false */
+}
+
+// iterations:
+for (let i = 0; i <= 10; i++) {
+  console.log(`loop number: ${i}`);
+}
+
+// functions:
+function addTwoNumbers(a, b) {
+  return a + b;
+}
