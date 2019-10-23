@@ -2,10 +2,18 @@ const fs = require("fs");
 let terminalText = process.argv;
 
 let htmlTitle = "Beau's Magic HTML Generator";
+
+if (terminalText[3] == undefined) {
+  console.log(
+    "There was no color specified, therefore the background color will default to white."
+  );
+
+  terminalText[3] = "white";
+}
+
 let htmlStyle = `
 body {
     background: ${terminalText[3]};
-    
     }
 
 h1 {
@@ -15,7 +23,7 @@ h1 {
 `;
 let htmlBody = `
 <h1>My First WebPage!</h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p>${terminalText[4]}</p>
 `;
 let htmlFileName = terminalText[2];
 let fullFileName = `${htmlFileName}.html`;
@@ -44,7 +52,7 @@ html = `
 </html>
 `;
 
-if (htmlFileName == "") {
+if (htmlFileName == "" || htmlFileName == undefined) {
   console.log(
     "You are missing a file name, cannot continue. ERROR: 302834u032"
   );
