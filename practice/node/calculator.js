@@ -13,14 +13,33 @@ if (isNaN(arg1) || isNaN(arg2)) {
   return;
 }
 
-let sum = arg1 + arg2;
-console.log(`The sum of ${arg1} and ${arg2} is ${sum}.`);
+function add(a, b) {
+  let sum = a + b;
+  console.log(`The sum of ${a} and ${b} is ${sum}.`);
+}
 
-let difference = arg1 - arg2;
-console.log(`The difference of ${arg1} and ${arg2} is ${difference}.`);
+function subtract(a, b) {
+  let difference = a - b;
+  console.log(`The difference of ${a} and ${b} is ${difference}.`);
+}
 
-let product = arg1 * arg2;
-console.log(`The product of ${arg1} and ${arg2} is ${product}.`);
+function multiply(a, b) {
+  let product = a * b;
+  console.log(`The product of ${a} and ${b} is ${product}.`);
+}
 
-let quotient = arg1 / arg2;
-console.log(`The quotient of ${arg1} and ${arg2} is ${quotient}.`);
+function divide(a, b) {
+  let quotient = a / b;
+  console.log(`The quotient of ${a} and ${b} is ${quotient}.`);
+}
+
+function getRemainder(a, b) {
+  let remainder = a % b;
+  console.log(`The remainder of ${a} and ${b} is ${remainder}.`);
+}
+
+add(arg1, arg2);
+subtract(arg1, arg2);
+multiply(arg1, arg2);
+divide(arg1, arg2);
+getRemainder(arg1, arg2);
