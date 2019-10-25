@@ -1,4 +1,6 @@
-// Note: Try adding a prompt for the user in the future. One node module you can use is Inquirer.js (https://alligator.io/nodejs/interactive-command-line-prompts/).
+/*
+Note: Try adding a prompt for the user in the future. One node module you can use is Inquirer.js (https://alligator.io/nodejs/interactive-command-line-prompts/). However, two much simpler options are the readline or prompt modules.
+*/
 
 // Renaming ARGV array for easier reading.
 // When using ARGV, start with index 2 - because indexes 0 and 1 are not useful in our code.
