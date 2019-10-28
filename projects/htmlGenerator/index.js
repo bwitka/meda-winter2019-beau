@@ -14,6 +14,8 @@ A whitelist is a list of things that you know are good.
 A blacklist is a list of things you know are bad.
 */
 
+// Note: examples of data filtering below are very crude.
+
 // Example of blacklist:
 if (terminalText[3] == undefined || terminalText[3] == "none") {
   console.log(
