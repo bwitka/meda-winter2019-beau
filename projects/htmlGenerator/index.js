@@ -1,14 +1,36 @@
+// Remember format to send a command to this file: node . <fileName> <color> <text>
+
 const fs = require("fs");
 let terminalText = process.argv;
+lat valid = true;
 
 let htmlTitle = "Beau's Magic HTML Generator";
 
-if (terminalText[3] == undefined) {
+/* 
+White lists and black lists are two ways of filtering data. If you have a white list then you will filter in only data on the white list; if you have a black list you will filter out only data on that list.
+Whitelist - only these things.
+Blacklist - everything but these things.
+A whitelist is a list of things that you know are good.
+A blacklist is a list of things you know are bad.
+*/
+
+// Example of blacklist:
+if (terminalText[3] == undefined || terminalText[3] == "none") {
   console.log(
     "There was no color specified, therefore the background color will default to white."
   );
 
-  terminalText[3] = "white";
+  terminalText[3] = "transparent";
+}
+
+// Example of whitelist:
+if (terminalText[3] != "red" || terminalText[3] != "green") {
+  console.log("Sorry, that is not a proper color value.");
+  valid = false;
+}
+
+if (valid == false) {
+  return;
 }
 
 let htmlStyle = `
