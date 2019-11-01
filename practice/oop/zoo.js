@@ -38,6 +38,7 @@ class Mammal extends Animal {
     this.heightInches = heightInches;
     this.weightLb = weightLb;
     this.tail = tail;
+    this.age = 0;
 
     console.log(`${this.type} was born.`);
   }
@@ -48,6 +49,18 @@ class Mammal extends Animal {
 
   sleep() {
     console.log(`${this.type} sleeps.`);
+  }
+
+  live(years) {
+    this.age += years;
+    if (this.lifeExpectancy < this.age) {
+      console.log(`${this.type} is now dead :(`);
+      this.expired = true;
+    } else {
+      console.log(
+        `${this.type} has successfully lived for an additional ${years} years.`
+      );
+    }
   }
 
   reproduce(weightLb, heightInches) {
@@ -92,6 +105,10 @@ const fifthMammal = thirdMammal.reproduce(2, 4);
 const sixthMammal = thirdMammal.reproduce(2, 4);
 
 litter.push(fourthMammal, fifthMammal, sixthMammal);
+
+litter[1].live(5);
+
+litter[1].live(20);
 
 const tilapia = new Fish(true);
 
