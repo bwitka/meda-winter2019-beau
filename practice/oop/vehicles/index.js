@@ -1,6 +1,7 @@
-// access the Car and Truck classes with the 'require' function:
+// access various vehicle classes with the 'require' function:
 const Car = require("./car.js");
 const Truck = require("./truck.js");
+const Helicopter = require("./helicopter.js");
 
 let honda = new Car(
   "Honda",
@@ -42,3 +43,7 @@ let volvo = new Truck(
 console.log(volvo);
 volvo.transport(30);
 volvo.transport(50);
+
+let chinook = new Helicopter();
+
+console.log(chinook);
