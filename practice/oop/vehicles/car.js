@@ -36,9 +36,11 @@ const Car = class Car extends Vehicle {
         console.log(
           `Your ${this.make} ${this.model} doesn't have enough gas to travel that far.`
         );
+        this.refuel();
       }
     } else {
       console.log(`Your ${this.make} ${this.model} has run out of gas.`);
+      this.refuel();
     }
   }
 
@@ -63,23 +65,30 @@ const Car = class Car extends Vehicle {
   refuel(gallons) {
     if (gallons <= 0) {
       console.log(`You need to provide fuel (positive number)`);
-      return;
+      return 1;
     } else {
       if (gallons >= this.tankSize) {
         console.log(`You provided too much fuel. Can not fit into tank.`);
+        return 1;
       } else {
         if (this.tankSize - this.currentFuel > gallons) {
           console.log(
             `There is not enough space in the fuel tank to add that many gallons of gas.`
           );
+          return 1;
         } else {
           this.currentFuel += gallons;
           console.log(
             `Your ${this.make} ${this.model} was successfully refueled with ${gallons} gallons of gas.`
           );
+          return 0;
         }
       }
     }
+  }
+
+  speak() {
+    console.log(`This is a car object.`);
   }
 };
 

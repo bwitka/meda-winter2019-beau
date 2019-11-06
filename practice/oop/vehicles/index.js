@@ -28,7 +28,6 @@ let volvo = new Truck(
   2019,
   "blue",
   "T-Rex Trucking Inc.",
-  "diesel",
   90,
   10,
   2,
