@@ -50,20 +50,32 @@ const Helicopter = require("./helicopter.js");
 
 // console.log(chinook);
 
-let randomCar = new Car(
-  "Generic",
-  "Company",
-  _.random(1885, 2020),
-  "transparent",
-  "User",
-  _.random(1111111, 9999999),
-  _.random(0, 300000),
-  _.random(0, 110),
-  _.random(1, 40),
-  "gas",
-  _.random(28, 240)
-);
+function createCar(make) {
+  let randomCar = new Car(
+    make,
+    "Company",
+    _.random(1885, 2020),
+    "transparent",
+    "User",
+    _.random(1111111, 9999999),
+    _.random(0, 300000),
+    _.random(0, 110),
+    _.random(1, 40),
+    "gas",
+    _.random(28, 240)
+  );
 
-stringifiedCar = JSON.stringify(randomCar);
+  return randomCar;
+}
 
-fs.writeFileSync("carInventory.json", stringifiedCar, "utf8");
+let container = {
+  cars: []
+};
+
+for (let i = 0; i < 100; i++) {
+  container.cars.push(createCar(`Car ${i}`));
+}
+
+let stringifiedData = JSON.stringify(container);
+
+fs.writeFileSync("carInventory.json", stringifiedData, "utf8");
