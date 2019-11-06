@@ -18,7 +18,6 @@ const Truck = class Truck extends Vehicle {
     year,
     color,
     owner,
-    engineType,
     topSpeed,
     wheelCount,
     axleCount,
@@ -29,7 +28,7 @@ const Truck = class Truck extends Vehicle {
     capacity,
     tankSize
   ) {
-    super(make, model, year, color, owner, engineType, topSpeed);
+    super(make, model, year, color, owner, "diesel", topSpeed);
     this.wheelCount = wheelCount;
     this.axleCount = axleCount;
     this.numOfGears = numOfGears;
@@ -38,10 +37,6 @@ const Truck = class Truck extends Vehicle {
     this.sleeperCab = sleeperCab;
     this.capacity = capacity;
     this.tankSize = tankSize;
-  }
-
-  setEngineType() {
-    this.engineType = "diesel";
   }
 
   transport(tons) {
