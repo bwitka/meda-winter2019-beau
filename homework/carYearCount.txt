@@ -1,0 +1,12 @@
+Beau Witka
+Mission Techies: in-class challenge (11/7/19)
+
+*Question to answer: how many cars do I have that were built between 1940 and 1960?
+
+*Steps to take to solve challenge/answer question:
+
+1.) Create a loop that iterates over the cars array.
+2.) Create a conditional inside of the loop that answers true or false.
+3.) The conditional will test if the year is greater than 1940 and less than 1960.
+4.) If true, a counter will increase by one. 
+5.) Finally, we will return the counter's value.
