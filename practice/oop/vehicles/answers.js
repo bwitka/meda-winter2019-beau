@@ -19,3 +19,18 @@ console.log(
   `What is the average miles per gallon of these ${data.cars.length} cars?`
 );
 console.log(`${mpgAverage} MPG`);
+
+// Check year of each car. Console number of cars built between 1940 and 1960:
+
+let cars = data.cars;
+let counter = 0;
+
+for (let i = 0; i < cars.length; i++) {
+  if (cars[i].year >= 1940 && cars[i].year <= 1960) {
+    counter += 1;
+  }
+}
+
+console.log(
+  `There are ${counter} cars in the array that were built between 1940 and 1960.`
+);
