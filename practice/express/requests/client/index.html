@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      body {
+        background: greenyellow;
+      }
+    </style>
+  </head>
+  <body>
+    <p>I am alive!</p>
+    <script>
+      $(document).ready(() => {
+        let data = {
+          firstName: "Beau"
+        };
+
+        // sends a POST request to the URL described. Order of arguments: URL, data, callback function.
+        $.post("http://localhost:3000/updateData", data, () => {
+          console.log("The server has responded!");
+        });
+      });
+    </script>
+  </body>
+</html>
