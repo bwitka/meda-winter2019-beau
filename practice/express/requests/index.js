@@ -16,7 +16,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/", express.static("client/"));
 
 app.post("/updateData", (request, response) => {
-  console.log(request.body);
+  console.log(request.body.firstName);
+
+  let text = request.body.firstName;
+
   console.log("We received a request to updateData.");
-  response.sendStatus(200);
+
+  let data = {
+    text: "Thank you for your input."
+  };
+
+  response.send(data);
 });

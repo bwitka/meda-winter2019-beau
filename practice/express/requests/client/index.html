@@ -23,8 +23,9 @@
         };
 
         // sends a POST request to the URL described. Order of arguments: URL, data, callback function.
-        $.post("http://localhost:3000/updateData", data, () => {
+        $.post("http://localhost:3000/updateData", data, dataFromServer => {
           console.log("The server has responded!");
+          console.log(dataFromServer);
         });
       });
     </script>
