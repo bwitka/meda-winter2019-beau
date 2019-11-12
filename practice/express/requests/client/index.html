@@ -43,16 +43,23 @@
     <script>
       $(document).ready(() => {
         $("#submit").click(() => {
-          console.log("I have been clicked!");
-        });
-        let data = {
-          firstName: "Beau"
-        };
+          /*
+          This listens to the "submit" button. The user presses the button to confirm that they are done and would like to submit to the server.
+          */
 
-        // sends a POST request to the URL described. Order of arguments: URL, data, callback function.
-        $.post("http://localhost:3000/updateData", data, dataFromServer => {
-          console.log("The server has responded!");
-          console.log(dataFromServer);
+          let data = {
+            firstName: $("#firstName").val(),
+            lastName: $("#lastName").val(),
+            email: $("#email").val(),
+            age: $("#age").val(),
+            message: $("#comment").val()
+          };
+
+          // sends a POST request to the URL described. Order of arguments: URL, data, callback function.
+          $.post("http://localhost:3000/updateData", data, dataFromServer => {
+            console.log("The server has responded!");
+            console.log(dataFromServer);
+          });
         });
       });
     </script>
