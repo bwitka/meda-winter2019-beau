@@ -15,12 +15,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Routes:
 app.use("/", express.static("client/"));
 
+// next line responds to any post request (two arguments: route, arrow function that will fire whenever it gets a request):
 app.post("/updateData", (request, response) => {
   console.log(request.body.firstName);
 
-  let text = request.body.firstName;
+  let objectFromRequest = request.body;
 
-  console.log("We received a request to updateData.");
+  console.log(objectFromRequest.message);
+
+  let text = objectFromRequest.message;
+
+  console.log(`We received a request for updateData: ${text}`);
+
+  // if you don't want to send any data back, you can use .sendStatus(). You can only use sendStatus() or send once to 'fulfill' front-end request.
+  // response.sendStatus(200);
 
   let data = {
     text: "Thank you for your input."
