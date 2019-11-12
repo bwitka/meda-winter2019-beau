@@ -1,3 +1,4 @@
+const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
@@ -21,11 +22,33 @@ app.post("/updateData", (request, response) => {
 
   let objectFromRequest = request.body;
 
-  console.log(objectFromRequest.message);
+  console.log(objectFromRequest);
 
-  let text = objectFromRequest.message;
+  let filename = "commentHistory.json";
 
-  console.log(`We received a request for updateData: ${text}`);
+  if (fs.existsSync(filename)) {
+    let comments = fs.readFileSync(filename, "utf8");
+
+    comments = JSON.parse(comments);
+
+    comments.commentsArray.push(objectFromRequest);
+
+    comments = JSON.stringify(comments);
+
+    fs.writeFileSync(filename, comments, "UTF8");
+
+    console.log("New comment saved to hard drive.");
+  } else {
+    let comments = { commentsArray: [objectFromRequest] };
+
+    comments = JSON.stringify(comments);
+
+    fs.writeFileSync(filename, comments, "UTF8");
+
+    console.log(
+      "Note: No existing file detected. Creating new file and saving comment to hard drive."
+    );
+  }
 
   // if you don't want to send any data back, you can use .sendStatus(). You can only use sendStatus() or send once to 'fulfill' front-end request.
   // response.sendStatus(200);
