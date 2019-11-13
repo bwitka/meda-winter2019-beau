@@ -2,63 +2,89 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Document</title>
+    <title>Submit your Comment!</title>
+
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
       crossorigin="anonymous"
     ></script>
+
     <style>
       body {
-        background: greenyellow;
+        background-color: lavenderblush;
       }
-
       h1 {
         text-align: center;
       }
     </style>
   </head>
   <body>
-    <h1>Comment Submission Form</h1>
-    <h3>Instructions:</h3>
-    <ol>
-      <li>fill in the form</li>
-      <li>press the submit button</li>
-    </ol>
-    <form id="commentSubmission">
-      <label for="firstName">First Name:</label> <br />
-      <input type="text" id="firstName" name="firstName" /> <br />
-      <label for="lastName">Last Name:</label> <br />
-      <input type="text" id="lastName" name="lastName" /> <br />
-      <label for="email">Email:</label> <br />
-      <input type="email" id="email" name="email" /> <br />
-      <label for="age">Age:</label> <br />
-      <input type="number" id="age" name="age" /> <br />
-      <label for="comment">Comment:</label> <br />
-      <textarea rows="5" cols="30" name="comment" id="comment"></textarea>
-      <br />
-    </form>
-    <input form="commentSubmission" type="reset" value="Reset" />
-    <button id="submit">Submit</button>
+    <div id="comments-section">
+      <h1>Comments Section</h1>
+      <ul id="comments"></ul>
+    </div>
+
+    <div id="comment-submission">
+      <h1>Comment Submission Form</h1>
+      <h2>Instructions</h2>
+      <ol>
+        <li>Fill in the form.</li>
+        <li>Press the Submit button.</li>
+      </ol>
+      <form id="commentSubmission">
+        <label for="fname">First Name</label><br />
+        <input name="fname" id="fname" type="text" /><br />
+        <label for="lname">Last Name</label><br />
+        <input name="lname" id="lname" type="text" /><br />
+        <label for="email">eMail</label>
+        <!-- eBook --><br />
+        <input name="email" id="email" type="email" /><br />
+        <label for="age">Age</label><br />
+        <input name="age" id="age" type="number" /><br />
+        <label for="comment">Your Comments</label><br />
+        <textarea cols="80" rows="20" id="comment"></textarea><br />
+      </form>
+
+      <input form="commentSubmission" type="reset" value="Reset" />
+      <button id="submit">Submit</button>
+    </div>
+
     <script>
       $(document).ready(() => {
         $("#submit").click(() => {
-          /*
-          This listens to the "submit" button. The user presses the button to confirm that they are done and would like to submit to the server.
-          */
+          // This listens to the "Submit" button, and the user presses on it to confirm they are done and would like to submit to the server.
+          // Add timestamp in the future by using:
+          // Date.prototype.toLocaleDateString();
 
           let data = {
-            firstName: $("#firstName").val(),
-            lastName: $("#lastName").val(),
+            message: $("#comment").val(),
+            firstName: $("#fname").val(),
+            lastName: $("#lname").val(),
             email: $("#email").val(),
-            age: $("#age").val(),
-            message: $("#comment").val()
+            age: $("#age").val()
           };
 
-          // sends a POST request to the URL described. Order of arguments: URL, data, callback function.
-          $.post("http://localhost:3000/updateData", data, dataFromServer => {
+          // Sends a post request to the URL described. Arguments in order: URL, data, Callback Function.
+          $.post("http://localhost:3000/submitComment", data, () => {
             console.log("The server has responded!");
-            console.log(dataFromServer);
+            $.post(
+              "http://localhost:3000/loadComments",
+              {},
+              commentsReceived => {
+                //console.log(commentsReceived.commentsArray[1].firstName);
+                let cArray = commentsReceived.commentsArray;
+                for (let i = 0; i < cArray.length; i++) {
+                  let commentString =
+                    "<li>" +
+                    cArray[i].message +
+                    " - " +
+                    cArray[i].firstName +
+                    "</li>";
+                  $("#comments").append(commentString);
+                }
+              }
+            );
           });
         });
       });
