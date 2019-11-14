@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <title>Submit your Comment!</title>
 
+    <!-- jQuery CDN version / needs Internet to run -->
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -20,11 +21,13 @@
     </style>
   </head>
   <body>
+    <!-- Comments section for webpage / START -->
     <div id="comments-section">
       <h1>Comments Section</h1>
       <ul id="comments"></ul>
     </div>
-
+    <!-- Comments section for webpage / END -->
+    <!-- Comments submission section / START -->
     <div id="comment-submission">
       <h1>Comment Submission Form</h1>
       <h2>Instructions</h2>
@@ -32,6 +35,7 @@
         <li>Fill in the form.</li>
         <li>Press the Submit button.</li>
       </ol>
+      <!-- Form for accepting comments / NEEDS SANITIZATION ON FRONT AND BACK -->
       <form id="commentSubmission">
         <label for="fname">First Name</label><br />
         <input name="fname" id="fname" type="text" /><br />
@@ -50,13 +54,20 @@
       <button id="submit">Submit</button>
     </div>
 
+    <!-- Comments submission section / END -->
+
     <script>
+      // All code that runs must be written in the (document).ready() function.
       $(document).ready(() => {
+        // update the list of comments.
+        updateCommentsList();
+        // Attach a listener to the Submit button.
         $("#submit").click(() => {
-          // This listens to the "Submit" button, and the user presses on it to confirm they are done and would like to submit to the server.
+          // The user presses on it to confirm they are done and would like to submit to the server.
           // Add timestamp in the future by using:
           // Date.prototype.toLocaleDateString();
 
+          // Build the object the we will send to the back end. Agree with the backend on how this object must be formatted.
           let data = {
             message: $("#comment").val(),
             firstName: $("#fname").val(),
@@ -68,26 +79,33 @@
           // Sends a post request to the URL described. Arguments in order: URL, data, Callback Function.
           $.post("http://localhost:3000/submitComment", data, () => {
             console.log("The server has responded!");
-            $.post(
-              "http://localhost:3000/loadComments",
-              {},
-              commentsReceived => {
-                //console.log(commentsReceived.commentsArray[1].firstName);
-                let cArray = commentsReceived.commentsArray;
-                for (let i = 0; i < cArray.length; i++) {
-                  let commentString =
-                    "<li>" +
-                    cArray[i].message +
-                    " - " +
-                    cArray[i].firstName +
-                    "</li>";
-                  $("#comments").append(commentString);
-                }
-              }
-            );
+            // Update list of comments.
+            updateCommentsList();
           });
         });
       });
+
+      // Defining a function that will update our list of comments.
+      function updateCommentsList() {
+        // Send a request to get ALL comments. We use post but we send an empty object.
+        $.post("http://localhost:3000/loadComments", {}, commentsReceived => {
+          //console.log(commentsReceived.commentsArray[1].firstName);
+
+          // Clear out any existing comments from the comments list.
+          $("#comments").empty();
+
+          let cArray = commentsReceived.commentsArray;
+          for (let i = 0; i < cArray.length; i++) {
+            let commentString =
+              "<li>" +
+              cArray[i].message +
+              " - " +
+              cArray[i].firstName +
+              "</li>";
+            $("#comments").append(commentString);
+          }
+        });
+      }
     </script>
   </body>
 </html>
