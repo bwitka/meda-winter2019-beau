@@ -8,25 +8,28 @@ const dataset = fs.readFileSync("Eviction_Notices.csv", "utf8");
 // Converted string into array where each new line is a new index.
 const dataArray = dataset.split("\n");
 
-// console.log(dataArray[22]);
+console.log(dataArray.length);
 
-// Renamed the 23rd record into a specific variable name.
-const singleEntry = dataArray[1900];
+let total = 0;
 
-const singleEntryArray = singleEntry.split(",");
+for (let i = 0; i < dataArray.length - 1; i++) {
+  let pass = is2018(dataArray[i]);
 
-console.log(typeof singleEntryArray[5]);
+  // "hello"
+  // ""
 
-const entryDate = singleEntryArray[5].split("/");
-
-console.log(entryDate);
-
-console.log(entryDate[2]);
-
-if ("2018" == entryDate[2]) {
-  console.log("This is an entry for 2018.");
+  if (pass === true) {
+    console.log("The line entry " + i + " is from the year 2018!");
+    total++;
+  } else if (pass === 1) {
+    console.log("The line " + (i + 1) + "has issues! please check.");
+    console.log(dataArray[i]);
+  }
 }
 
+console.log(total);
+
+// This accepts a string only, returns true, false, or 1 if issue.
 function is2018(entry) {
   const singleEntryArray = entry.split(",");
 
@@ -34,6 +37,9 @@ function is2018(entry) {
 
   if ("2018" == entryDate[2]) {
     return true;
+  } else if (undefined === entryDate[2]) {
+    console.log("We found the issue with the line:\n" + entry);
+    return 1;
   } else {
     return false;
   }
