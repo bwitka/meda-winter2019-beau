@@ -15,6 +15,11 @@ let headings = dataArray.shift();
 // Counter for the amount of 2018 entries we found.
 let total = 0;
 
+let json2018Data = {
+  headings: headings,
+  data: []
+};
+
 // Loop through all the entries of the dataset (not including headings, and last empty line).
 for (let i = 0; i < dataArray.length - 1; i++) {
   // Test the entry using the is2018 function.
@@ -24,6 +29,7 @@ for (let i = 0; i < dataArray.length - 1; i++) {
   if (pass === true) {
     //console.log("The line entry " + i + " is from the year 2018!");
     total++;
+    json2018Data.data.push(dataArray[i]);
     // If we encounter an issue, tell us about it.
   } else if (pass === 1) {
     console.log("The line " + (i + 1) + "has issues! please check.");
@@ -34,7 +40,12 @@ for (let i = 0; i < dataArray.length - 1; i++) {
 }
 
 // Finally console log the total amount of entries that matched 2018.
-console.log(total);
+console.log(json2018Data);
+
+// convert JavaScript object to a JSON string.
+let jsonString = JSON.stringify(json2018Data);
+
+fs.writeFileSync("2018entries.json", jsonString, "utf8");
 
 // This accepts a string only, returns true, false, or 1 if issue.
 function is2018(entry) {
