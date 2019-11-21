@@ -80,6 +80,122 @@ for (let i = 0; i < dataObjectsArray.length; i++) {
 }
 
 console.log(months);
+// Use the spread operator (...) to search the months array for the largest number:
+console.log(Math.max(...months));
+
+// Create variables to keep track of the highest number and month.
+let highestValue = 0;
+let highestMonthIndex = -1;
+
+// Loop through each counter of the months array.
+for (let i = 0; i < months.length; i++) {
+  // Ask if current highestValue is smaller than the current counter value.
+  if (highestValue < months[i]) {
+    // If it is, then replace the current highestValue with the current month count.
+    highestValue = months[i];
+    // Track the current highestMonthIndex.
+    highestMonthIndex = i;
+  }
+}
+
+console.log(
+  `The month with the highest evictions for 2018 was month number ${highestMonthIndex +
+    1}, with an index of ${highestValue} evictions.`
+);
+
+// Question 2.)
+console.log(
+  "How many evictions happened because of Ellis Act and Condo Conversions for the year 2018?"
+);
+
+let ellisTotal = 0;
+let condoTotal = 0;
+let masterTotal = 0;
+let bothTotal = 0;
+
+// Create a loop that iterates over all of our objects:
+for (let i = 0; i < dataObjectsArray.length; i++) {
+  let currentObject = dataObjectsArray[i];
+
+  if (currentObject.ellisAct === "true") {
+    ellisTotal++;
+    masterTotal++;
+  } else if (currentObject.condoConversion === "true") {
+    condoTotal++;
+    masterTotal++;
+  }
+
+  if (
+    currentObject.ellisAct === "true" &&
+    currentObject.condoConversion === "true"
+  ) {
+    bothTotal++;
+  }
+}
+
+console.log(`
+  Total because of Ellis: ${ellisTotal}; 
+  Total because of Condo Conversion: ${condoTotal}; 
+  Total because of either: ${masterTotal}; 
+  Total because of both: ${bothTotal}.
+  `);
+
+// Question 3.)
+console.log("Which zip codes had the most evictions for 2018?");
+
+// Create an array of San Francisco zip codes:
+const zipCodes = [
+  94102,
+  94103,
+  94104,
+  94105,
+  94107,
+  94108,
+  94109,
+  94110,
+  94111,
+  94112,
+  94114,
+  94115,
+  94116,
+  94117,
+  94118,
+  94119,
+  94120,
+  94121,
+  94122,
+  94123,
+  94124,
+  94125,
+  94126,
+  94127,
+  94129,
+  94130,
+  94131,
+  94132,
+  94133,
+  94134,
+  94137,
+  94139,
+  94140,
+  94141,
+  94142,
+  94143,
+  94144,
+  94145,
+  94146,
+  94147,
+  94151,
+  94158,
+  94159,
+  94160,
+  94161,
+  94163,
+  94164,
+  94172,
+  94177,
+  94188
+];
 
 function stringToObject(string) {
   // Split up the entry string into its individual parts.
