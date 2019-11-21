@@ -140,8 +140,11 @@ console.log(`
   Total because of both: ${bothTotal}.
   `);
 
+// WEEKEND HOMEWORK (11/21/19): answer the question: which zip code had the most evictions for 2018?
+// Bonus question: name the neighborhood with the most evictions.
+
 // Question 3.)
-console.log("Which zip codes had the most evictions for 2018?");
+console.log("Which zip code had the most evictions for 2018?");
 
 // Create an array of San Francisco zip codes:
 const zipCodes = [
