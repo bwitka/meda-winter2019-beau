@@ -1,6 +1,9 @@
+// Include the fs package to read files.
 const fs = require("fs");
 
+// Because we are going to be creating a group of objects - we build a class for object consistency.
 class EvictionNotice {
+  // Order of parameters does matter. But order of properties doesn't matter.
   constructor(month, zip, ellisAct, condoConversion) {
     this.month = month;
     this.zip = zip;
@@ -9,26 +12,34 @@ class EvictionNotice {
   }
 }
 
-let data = fs.readFileSync("2018entries.json", "utf8");
+// Read our filtered dataset.
+let evictionDataMasterString = fs.readFileSync("2018entries.json", "utf8");
 
-data = JSON.parse(data);
+// Convert the filtered dataset to a living JS object.
+// Inside data, there is a key called "data" holding an array of strings.
+evictionDataMasterObject = JSON.parse(evictionDataMasterString);
 
-dataObjects = [];
+// Array to hold our objects that were created from the strings in our dataset.
+const dataObjectsArray = [];
 
-for (let i = 0; i < data.data.length; i++) {
-  dataObjects.push(stringToObject(data.data[i]));
+// Loop through each string inside of the data key array inside the "evictionDataMasterObject" variable.
+for (let i = 0; i < evictionDataMasterObject.data.length; i++) {
+  // Grab the current string inside the data key inside the evictionDataMasterObject, send it to the stringToObject function to convert it to an object using the Eviction class, and then whatever it returns to us, push it into the dataObjectsArray.
+  dataObjectsArray.push(stringToObject(evictionDataMasterObject.data[i]));
 }
 
 // Question 1
 console.log("What month had the most evictions?");
 
 // index 0 is January, index 11 is December.
+// Set counter for all months to 0 (they have the potential to increment in the switch statement below).
 let months = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-for (let i = 0; i < dataObjects.length; i++) {
-  // months[parseInt(dataObjects[i].month) - 1]++;
+// Loop through all the converted objects and pull out the month value and compare it to the specific values for each month. If a match is found, add a 1 to that month's counter inside the months array.
+for (let i = 0; i < dataObjectsArray.length; i++) {
+  // months[parseInt(dataObjectsArray[i].month) - 1]++;
 
-  switch (dataObjects[i].month) {
+  switch (dataObjectsArray[i].month) {
     case "01":
       months[0]++;
       break;
