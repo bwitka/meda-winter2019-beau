@@ -237,7 +237,7 @@ const zipCodes = [
   94188
 ];
 
-// Create an object that matches SF zip codes with their neighborhoods
+// Create an object that matches SF zip codes to their neighborhoods:
 
 let sfNeighborhoodsByZip = {
   94102: "Hayes Valley/Tenderloin/North of Market",
