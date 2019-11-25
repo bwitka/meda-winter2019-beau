@@ -37,3 +37,51 @@ db.on("error", console.error.bind(console, "mongoDB connection error: "));
 mongoose.Promise = global.Promise;
 
 // Finished connecting to mongoDB.
+
+// Build a schema for our database:
+let Schema = mongoose.Schema;
+
+// Customize our schema and name it practiceSchema.
+let practiceSchema = new Schema({
+  note: String,
+  old: Boolean,
+  timesUpdate: Number
+});
+
+// Create a model, and hookup to schema:
+let practiceModel = new mongoose.model("myfirstcollections", practiceSchema);
+
+// CREATE
+// Build new practiceSchema object:
+// let newEntry = new practiceModel({
+//   note: "This is the second note in my database",
+//   old: false,
+//   timesUpdate: 2
+// });
+
+// // Send above info to database:
+// newEntry.save(error => {
+//   if (error) {
+//     console.error(`There was an error at MongoDB Atlas ${error}.`);
+//   } else {
+//     console.log(`We saved the data!`);
+//   }
+// });
+
+// READ
+// Read from database. find() takes 2 arguments
+let searchCriteria = {
+  timesUpdate: 2
+};
+
+// Search the database.
+practiceModel.find(searchCriteria, (error, results) => {
+  // If error...
+  if (error) {
+    // ...tell us about it.
+    console.error(`Something went wrong :( => ${error}`);
+    // Otherwise console.log() the search results.
+  } else {
+    console.log(results);
+  }
+});
