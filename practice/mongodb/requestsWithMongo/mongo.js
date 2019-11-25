@@ -45,7 +45,8 @@ let Schema = mongoose.Schema;
 let practiceSchema = new Schema({
   note: String,
   old: Boolean,
-  timesUpdate: Number
+  timesUpdate: Number,
+  city: String
 });
 
 // Create a model, and hookup to schema:
@@ -85,3 +86,34 @@ practiceModel.find(searchCriteria, (error, results) => {
     console.log(results);
   }
 });
+
+// Create an object to store the data you would like to update in the findByIdAndUpdate function below.
+let dataToUpdate = {
+  old: true,
+  city: "San Francisco"
+};
+
+// UPDATE
+practiceModel.findByIdAndUpdate(
+  "5ddc1d91c4949fabac6e8f6a",
+  dataToUpdate,
+  (error, results) => {
+    if (error) {
+      console.error(`Something happened: ${error}`);
+    } else {
+      console.log(results);
+    }
+  }
+);
+
+// DELETE
+practiceModel.findByIdAndDelete(
+  "5ddc20cee4fbeaac7b45be06",
+  (error, results) => {
+    if (error) {
+      console.error(`Yikes! There was an error: ${error}`);
+    } else {
+      console.log(`Data was successfully deleted!`);
+    }
+  }
+);
