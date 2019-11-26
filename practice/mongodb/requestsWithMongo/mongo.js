@@ -107,13 +107,6 @@ practiceModel.findByIdAndUpdate(
 );
 
 // DELETE
-practiceModel.findByIdAndDelete(
-  "5ddc20cee4fbeaac7b45be06",
-  (error, results) => {
-    if (error) {
-      console.error(`Yikes! There was an error: ${error}`);
-    } else {
-      console.log(`Data was successfully deleted!`);
-    }
-  }
-);
+
+// First argument is the ID of the entry to delete, second argument is the callback function that runs when MongoDB responds with success or failure.
+practiceModel.findByIdAndDelete();
