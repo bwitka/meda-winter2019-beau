@@ -78,6 +78,7 @@ app.post("/submitComment", (request, response) => {
   // let text = objectFromRequest.message;
   // console.log("We recieved a request for/submitComment: " + text);
 
+  // Modify the object received from the front end to meet Schema criteria.
   objectFromRequest.age = parseInt(objectFromRequest.age);
   objectFromRequest.timestamp = new Date();
 
