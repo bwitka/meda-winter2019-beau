@@ -1,6 +1,6 @@
 // Include into our code, the FS package (builtin)
 const fs = require("fs");
-// Include mongoose:
+// Includes into our code, the Mongoose.js package.
 const mongoose = require("mongoose");
 // Includes into our code, the Express.js, provided by NPM.
 const express = require("express");
@@ -26,12 +26,12 @@ const options = {
   useUnifiedTopology: true
 };
 
-// Connect to mongoDB Atlas:
+// Actually connect to MongoDB Atlas.
 mongoose.connect(dbConnect, options, error => {
   if (error) {
-    console.error(error);
+    console.log(error);
   } else {
-    console.log("Successfully connected to mongoDB Atlas!");
+    console.log("Successfully connected to MongoDB Atlas!");
   }
 });
 
@@ -51,7 +51,7 @@ let commentsSchema = new Schema({
   timestamp: Date
 });
 
-// Create a model for the comments collection using the comments schema.
+// Create a Model for the comments collection using the comments Schema.
 let commentsModel = new mongoose.model("comments", commentsSchema);
 
 // Signifying the Developer that Express.js is now running.
@@ -81,18 +81,17 @@ app.post("/submitComment", (request, response) => {
   console.log(objectFromRequest);
 
   // let text = objectFromRequest.message;
-  // console.log("We received a request for/submitComment: " + text);
+  // console.log("We recieved a request for/submitComment: " + text);
 
   objectFromRequest.age = parseInt(objectFromRequest.age);
   objectFromRequest.timestamp = new Date();
 
-  let newComment = commentsModel(objectFromRequest);
-
+  let newComment = new commentsModel(objectFromRequest);
   newComment.save(error => {
     if (error) {
-      console.error(error);
+      console.log(error);
     } else {
-      console.log("Successfully saved a new comment to the database!");
+      console.log("Saved a new comment to the database!");
     }
   });
 
@@ -127,22 +126,33 @@ app.post("/submitComment", (request, response) => {
   // {commentsArray: []}
 
   // If you don't want to send any data back, you can use .sendStatus(). You can only use sendStatus or send once to "fulfill" front-end request.
-
   response.sendStatus(200);
 });
 
 // A second HTTP Post Handler called /loadComments
 app.post("/loadComments", (request, response) => {
-  // Check if the JSON file exists...
-  if (fs.existsSync(filename)) {
-    // ...If it exists then read it...
-    let comments = fs.readFileSync(filename, "utf8");
-    // ...and convert to a JavaScript Object...
-    comments = JSON.parse(comments);
-    // ...finally send it to the requester.
-    response.send(comments);
-  } else {
-    // ...If it doesn't exist, then send an error 500 to the requester.
-    response.sendStatus(500);
-  }
+  commentsModel.find({}, (error, results) => {
+    if (error) {
+      console.log(error);
+    } else {
+      let objectToSend = {
+        commentsArray: results
+      };
+      response.send(objectToSend);
+    }
+  });
+
+  // // Check if the JSON file exists...
+  // if (fs.existsSync(filename)) {
+
+  //     // ...If it exists then read it...
+  //     let comments = fs.readFileSync(filename, "utf8");
+  //     // ...and convert to a JavaScript Object...
+  //     comments = JSON.parse(comments);
+  //     // ...finally send it to the requester.
+  //     response.send(comments);
+  // } else {
+  //     // ...If it doesn't exist, then send an error 500 to the requester.
+  //     response.sendStatus(500);
+  // }
 });
