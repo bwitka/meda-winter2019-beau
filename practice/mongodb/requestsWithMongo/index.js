@@ -35,17 +35,13 @@ mongoose.connect(dbConnect, options, error => {
   }
 });
 
-// Store the object "connection" in a variable called db.
-let db = mongoose.connection();
-
-// Call the "on" function - hookup any MongoDB errors we receive to the console.
+//link up MongoDB errors with the console, and link up the definition of Promises to Mongoose.
+let db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB error: "));
-
-// Tell mongoose what a Promise is by providing the Class to it.
 mongoose.Promise = global.Promise;
 
-// Build mongoDB schema:
-let schema = mongoose.Schema;
+//Building MongoDB Schema.
+let Schema = mongoose.Schema;
 let commentsSchema = new Schema({
   message: String,
   firstName: String,
@@ -89,6 +85,16 @@ app.post("/submitComment", (request, response) => {
 
   objectFromRequest.age = parseInt(objectFromRequest.age);
   objectFromRequest.timestamp = new Date();
+
+  let newComment = commentsModel(objectFromRequest);
+
+  newComment.save(error => {
+    if (error) {
+      console.error(error);
+    } else {
+      console.log("Successfully saved a new comment to the database!");
+    }
+  });
 
   // If the file exists do...
   if (fs.existsSync(filename)) {
