@@ -1,5 +1,3 @@
-// Include into our code, the FS package (builtin)
-const fs = require("fs");
 // Includes into our code, the Mongoose.js package.
 const mongoose = require("mongoose");
 // Includes into our code, the Express.js, provided by NPM.
@@ -64,9 +62,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Custom Code for Express.js after this line.
 
-// Variable to make sure the file name is the same every time.
-let filename = "commentHistory.json";
-
 // Routes
 // First Argument is the route name, second argument is directory to load when someone requests the route name.
 app.use("/", express.static("client/"));
@@ -95,64 +90,24 @@ app.post("/submitComment", (request, response) => {
     }
   });
 
-  // If the file exists do...
-  if (fs.existsSync(filename)) {
-    // ...read the file and store the contents in the variable comments...
-    let comments = fs.readFileSync(filename, "utf8");
-    // ...parse the JSON and reuse the same comments variable...
-    comments = JSON.parse(comments);
-    // ...add the new objectFromRequest object to the array inside of the comments object...
-    comments.commentsArray.push(objectFromRequest);
-    // ...then convert comments back into a string as JSON...
-    comments = JSON.stringify(comments);
-    // ...finally save the JSON string to a file.
-    fs.writeFileSync(filename, comments, "utf8");
-    console.log("New Comment Saved to Hard Drive!");
-  } else {
-    // If the file doesn't exists...
-    // ...We prebuild the object (which includes the comment we just recieve) to save as JSON...
-    let comments = {
-      commentsArray: [objectFromRequest]
-    };
-    // ...Convert it actual JSON String...
-    comments = JSON.stringify(comments);
-    // ...Finally save JSON string to new File.
-    fs.writeFileSync(filename, comments, "utf8");
-    console.log(
-      "Note: No Save File Detected, creating New File. New Comment Saved to Hard Drive!"
-    );
-  }
-
-  // {commentsArray: []}
-
   // If you don't want to send any data back, you can use .sendStatus(). You can only use sendStatus or send once to "fulfill" front-end request.
   response.sendStatus(200);
 });
 
 // A second HTTP Post Handler called /loadComments
 app.post("/loadComments", (request, response) => {
+  // Read all the comments from mongoDB Atlas:
   commentsModel.find({}, (error, results) => {
     if (error) {
+      // If error, notify user:
       console.log(error);
     } else {
+      // Build an object that the front-end expects...
       let objectToSend = {
         commentsArray: results
       };
+      // ...and send it.
       response.send(objectToSend);
     }
   });
-
-  // // Check if the JSON file exists...
-  // if (fs.existsSync(filename)) {
-
-  //     // ...If it exists then read it...
-  //     let comments = fs.readFileSync(filename, "utf8");
-  //     // ...and convert to a JavaScript Object...
-  //     comments = JSON.parse(comments);
-  //     // ...finally send it to the requester.
-  //     response.send(comments);
-  // } else {
-  //     // ...If it doesn't exist, then send an error 500 to the requester.
-  //     response.sendStatus(500);
-  // }
 });
