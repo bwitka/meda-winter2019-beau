@@ -1,5 +1,7 @@
 // Include into our code, the FS package (builtin)
 const fs = require("fs");
+// Include mongoose:
+const mongoose = require("mongoose");
 // Includes into our code, the Express.js, provided by NPM.
 const express = require("express");
 // Includes into our code Body Parser, comes with Express.js
@@ -12,6 +14,49 @@ const http = require("http").Server(app);
 const port = 3000;
 // We pass the port variable to the listen function for the HTTP server.
 http.listen(port);
+
+// URL to access our MongoDB database.
+const dbConnect =
+  "mongodb+srv://commentsUser:m0ng0db!@cluster0-t7l2r.mongodb.net/commentsproject?retryWrites=true&w=majority";
+
+// Additional options when connecting to MongoDB.
+const options = {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true
+};
+
+// Connect to mongoDB Atlas:
+mongoose.connect(dbConnect, options, error => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log("Successfully connected to mongoDB Atlas!");
+  }
+});
+
+// Store the object "connection" in a variable called db.
+let db = mongoose.connection();
+
+// Call the "on" function - hookup any MongoDB errors we receive to the console.
+db.on("error", console.error.bind(console, "MongoDB error: "));
+
+// Tell mongoose what a Promise is by providing the Class to it.
+mongoose.Promise = global.Promise;
+
+// Build mongoDB schema:
+let schema = mongoose.Schema;
+let commentsSchema = new Schema({
+  message: String,
+  firstName: String,
+  lastName: String,
+  email: String,
+  age: Number,
+  timestamp: Date
+});
+
+// Create a model for the comments collection using the comments schema.
+let commentsModel = new mongoose.model("comments", commentsSchema);
 
 // Signifying the Developer that Express.js is now running.
 console.log("Express server running on port " + port);
@@ -40,7 +85,10 @@ app.post("/submitComment", (request, response) => {
   console.log(objectFromRequest);
 
   // let text = objectFromRequest.message;
-  // console.log("We recieved a request for/submitComment: " + text);
+  // console.log("We received a request for/submitComment: " + text);
+
+  objectFromRequest.age = parseInt(objectFromRequest.age);
+  objectFromRequest.timestamp = new Date();
 
   // If the file exists do...
   if (fs.existsSync(filename)) {

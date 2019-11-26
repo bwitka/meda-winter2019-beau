@@ -33,7 +33,7 @@ let db = mongoose.connection;
 // Call the "on" function - hookup any MongoDB errors we receive to the console.
 db.on("error", console.error.bind(console, "mongoDB connection error: "));
 
-// Tell mongoose what a Promise is by providing the CLass to it.
+// Tell mongoose what a Promise is by providing the Class to it.
 mongoose.Promise = global.Promise;
 
 // Finished connecting to mongoDB.
