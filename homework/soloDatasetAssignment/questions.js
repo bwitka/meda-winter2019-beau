@@ -13,7 +13,7 @@ class FilmLocations {
 }
 
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!
-NOTE: write code that will filter data to eliminate commas in production company name and/or and empty string value.
+NOTE: write code that will filter data to eliminate commas in production company name and/or and empty string values.
 !!!!!!!!!!!!!!!!!!!!!!!!!!! */
 
 // Use fs.readFileSync() to store filtered dataset in a new variable:
