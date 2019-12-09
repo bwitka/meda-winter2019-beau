@@ -1,6 +1,6 @@
 /***** 
  HOMEWORK(12/4/19): 
-
+figure out how to get something out of the asynchronous function to global scope / normal synchronous code.
  *****/
 
 // async function firstAsync() {
