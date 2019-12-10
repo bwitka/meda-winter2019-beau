@@ -1,41 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-/* 
+let myFirstReactElement = <h1 id="firstHeader">Hello, World!</h1>;
+
+// SYNTAX: ReactDOM.render(element, container[, callback])
+ReactDOM.render(myFirstReactElement, document.getElementById("root"));
+
+/****** INTRODUCING JSX! ******/
+// Note on using JSX: to run any JS variable, place the variable name between curly braces {<js_variable_name>}. Also, anything written in JSX should go between parentheses.
+
+let text = <p>{someJSVariable}</p>;
+
+/* SYNTAX:
 React.createElement(
 type,
     [props],
     [...children]
 )
 */
-
-const title = React.createElement("h1", { id: "top" }, "Hello World!");
-
-const someTitle = "Welcome to my React website!";
-
-const footer = (
-  <div id="footer">
-    <p>{someTitle}</p>
-    <ul>
-      <li>List Item 1</li>
-    </ul>
-  </div>
-);
-
-const footer2 = React.createElement("div", { id: "footer" });
-
-const greeting = React.createElement("p", null, "Hello there!");
-
-const idOfDiv = "test";
-
-const app = (
-  <div id={idOfDiv}>
-    {title}
-    {greeting}
-  </div>
-);
-
-// ReactDOM.render(element, container[, callback])
-ReactDOM.render(title, document.getElementById("root"));
-
-// ReactDOM.render(greeting, document.getElementById("root"));
