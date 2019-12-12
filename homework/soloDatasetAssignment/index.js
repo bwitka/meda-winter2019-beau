@@ -53,7 +53,7 @@ for (let i = 0; i < dataArray.length - 1; i++) {
     json2018Data.data.push(dataArray[i]);
     // If we encounter an issue, tell us about it.
   } else if (pass === 1) {
-    console.log("The line " + (i + 1) + "has issues! please check.");
+    console.log("Line #" + (i + 1) + " has issues! Please check.");
     console.log(dataArray[i]);
   }
 

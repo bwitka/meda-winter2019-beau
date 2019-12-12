@@ -3,18 +3,11 @@ const fs = require("fs");
 
 // Build a class for the objects to be created from the Film_Locations data:
 class FilmLocations {
-  constructor(title, releaseYear, productionCompany, distributor, director) {
+  constructor(title, releaseYear) {
     this.title = title;
     this.releaseYear = releaseYear;
-    this.productionCompany = productionCompany;
-    this.distributor = distributor;
-    this.director = director;
   }
 }
-
-/* !!!!!!!!!!!!!!!!!!!!!!!!!!!
-NOTE: write code that will filter data to eliminate commas in production company name and/or and empty string values.
-!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 
 // Use fs.readFileSync() to store filtered dataset in a new variable:
 let filteredDataString = fs.readFileSync("2018entries.json", "utf8");
@@ -31,13 +24,7 @@ function stringToObject(string) {
   let entryArray = string.split(",");
 
   // Create a new object and provide the proper values.
-  let filmObject = new FilmLocations(
-    entryArray[0],
-    entryArray[1],
-    entryArray[4],
-    entryArray[5],
-    entryArray[6]
-  );
+  let filmObject = new FilmLocations(entryArray[0], entryArray[1]);
 
   // Return new object to call location.
   return filmObject;
@@ -51,3 +38,13 @@ for (let i = 0; i < filteredDataObject.data.length; i++) {
 }
 
 console.log(dataObjectsArray);
+
+/********** QUESTION ONE **********/
+
+/********** QUESTION TWO **********/
+
+/********** QUESTION THREE **********/
+
+/********** QUESTION FOUR **********/
+
+/********** QUESTION FIVE **********/
